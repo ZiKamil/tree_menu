@@ -1,0 +1,26 @@
+<h3>{{ menu_name }}</h3>
+<ul>
+  {% for parent in parents %}
+    <li>
+    <a href="{% url 'menu-detail' parent.id %}">{{ parent.name }}</a>
+      <ul>
+        {% for current in currents %}
+          {% if parent.id == current.parent.id %}
+            <li>
+              <a href="{% url 'menu-detail' current.id %}">{{ current.name }}</a>
+              <ul>
+                {% for children in childrens %}
+                  {% if current.id == children.parent.id %}
+                    <li>
+                      <a href="{% url 'menu-detail' children.id %}">{{ children.name }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ul>
